@@ -1,0 +1,14 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+
+    <changeSet id="TEMPLATE-1-create-extensions" author="Andrey">
+        <comment>Create extension uuid-ossp</comment>
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA ${database.defaultSchemaName};
+        </sql>
+    </changeSet>
+</databaseChangeLog>

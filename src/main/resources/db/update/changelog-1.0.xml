@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db/changelog.xml">
+
+
+    <changeSet id="TEMPLATE-1-create-table-dat_user" author="Andrey">
+        <comment>Create table dat_user</comment>
+        <createTable tableName="data_user" remarks="Пользователи">
+            <column name="user_id" type="uuid" defaultValueComputed="uuid_generate_v4()" remarks="Идентификатор">
+                <constraints primaryKey="true" primaryKeyName="pk_dat_user_id"/>
+            </column>
+            <column name="user_name" type="varchar(100)" remarks="Фамилия">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

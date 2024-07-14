@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="uuid_function" value="gen_random_uuid()" dbms="postgresql"/>
+
+    <changeSet id="insert data to data_user" author="Andrey">
+        <insert tableName="data_user">
+            <column name="user_id" valueComputed="${uuid_function}"/>
+            <column name="user_name" value="Иванов"/>
+        </insert>
+        <insert tableName="data_user">
+            <column name="user_id" valueComputed="${uuid_function}"/>
+            <column name="user_name" value="Петр"/>
+        </insert>
+        <insert tableName="data_user">
+            <column name="user_id" valueComputed="${uuid_function}"/>
+            <column name="user_name" value="Путин"/>
+
+        </insert>
+        <insert tableName="data_user">
+            <column name="user_id" valueComputed="${uuid_function}"/>
+            <column name="user_name" value="Гослинг"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
