@@ -11,5 +11,5 @@ import java.util.UUID;
  * @author Team Aston
  */
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
-
+    UserEntity findUserEntityByUserName(String userName);
 }

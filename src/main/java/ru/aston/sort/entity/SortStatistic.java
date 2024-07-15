@@ -22,11 +22,20 @@ public class SortStatistic implements IEntity{
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID sortStatisticId;
+
     @Column(name = "permutations")
     private Integer permutations;
+
     @Column(name = "sorting_time")
     private Duration sortingTime;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = true)
     private UserEntity userEntity;
+
+    public SortStatistic(Integer permutations, Duration sortingTime, UserEntity userEntity) {
+        this.permutations = permutations;
+        this.sortingTime = sortingTime;
+        this.userEntity = userEntity;
+    }
 }

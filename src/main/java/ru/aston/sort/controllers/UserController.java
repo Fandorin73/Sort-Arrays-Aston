@@ -1,17 +1,16 @@
 package ru.aston.sort.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import ru.aston.sort.dto.SortStatisticDto;
 import ru.aston.sort.dto.UserDto;
+import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.service.UserService;
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +26,24 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+
+    @PostMapping("/upload")
+    public SortStatisticDto quickSortFromFile(@PathVariable("username") String username,
+                                                    @RequestParam("file") MultipartFile file) {
+        return userService.quickSortFromFile(file, username);
+    }
+
+        @PostMapping(path = "/bubbleSort/{username}")
+    public SortStatisticDto bubbleSort(@PathVariable("username") String username,
+                                       @RequestBody List<Integer> list) {
+        return userService.bubbleSort(list, username);
+    }
+
+    @PostMapping(path = "/quickSort/{username}")
+    public SortStatisticDto quickSort(@PathVariable("username") String username,
+                                  @RequestBody List<Integer> list) {
+        return userService.quickSort(list, username);
+    }
 
     /**
      * Добавление User.
