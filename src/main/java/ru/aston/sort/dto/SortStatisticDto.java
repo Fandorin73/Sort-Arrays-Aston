@@ -17,10 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class SortStatisticDto {
-
-    private UUID sortStatisticId;
-
     private Integer permutations;
 
-    private Duration sortingTime;
+    private long sortingTimeMills;
 }

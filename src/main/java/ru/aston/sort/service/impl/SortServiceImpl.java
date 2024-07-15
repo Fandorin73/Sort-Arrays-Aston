@@ -28,6 +28,7 @@ public class SortServiceImpl implements SortService {
     private final SortStatisticRepository sortStatisticRepository;
     private final SortStatisticsMapper mapper;
     private final UserRepository userRepository;
+    private final StrategySort strategySort;
 
     @Override
     public List<SortStatisticDto> getAllSort() {
@@ -50,9 +51,9 @@ public class SortServiceImpl implements SortService {
 
         sortStatistic.setPermutations(5);
 
-        Duration duration= Duration.ofDays(1);
+        Duration duration = Duration.ofDays(1);
         sortStatistic.setSortingTime(duration);
-        UserEntity userEntity=userRepository.getReferenceById(userId);
+        UserEntity userEntity = userRepository.getReferenceById(userId);
         sortStatistic.setUserEntity(userEntity);
 
         sortStatisticRepository.save(sortStatistic);
