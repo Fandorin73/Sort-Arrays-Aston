@@ -1,5 +1,6 @@
 package ru.aston.sort.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.aston.sort.dto.SortStatisticDto;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +11,14 @@ import java.util.UUID;
  * @author Team Aston
  */
 public interface SortService {
+
+    SortStatisticDto bubbleSort(List<Integer> list, String userName);
+
+    SortStatisticDto quickSort(List<Integer> list, String userName);
+
+    SortStatisticDto bubbleSortFromFile(MultipartFile file, String userName);
+
+    SortStatisticDto quickSortFromFile(MultipartFile file, String userName);
 
     /**
      * Поиск всех сортировок

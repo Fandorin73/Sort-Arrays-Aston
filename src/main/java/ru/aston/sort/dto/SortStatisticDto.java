@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SortStatisticDto {
+public class SortStatisticDto implements DtoModel {
     private Integer permutations;
 
     private long sortingTimeMills;

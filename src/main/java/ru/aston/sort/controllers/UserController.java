@@ -24,26 +24,8 @@ import java.util.UUID;
 @RequestMapping(path = "/users")
 @AllArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
-    @PostMapping("/upload")
-    public SortStatisticDto quickSortFromFile(@PathVariable("username") String username,
-                                                    @RequestParam("file") MultipartFile file) {
-        return userService.quickSortFromFile(file, username);
-    }
-
-        @PostMapping(path = "/bubbleSort/{username}")
-    public SortStatisticDto bubbleSort(@PathVariable("username") String username,
-                                       @RequestBody List<Integer> list) {
-        return userService.bubbleSort(list, username);
-    }
-
-    @PostMapping(path = "/quickSort/{username}")
-    public SortStatisticDto quickSort(@PathVariable("username") String username,
-                                  @RequestBody List<Integer> list) {
-        return userService.quickSort(list, username);
-    }
 
     /**
      * Добавление User.

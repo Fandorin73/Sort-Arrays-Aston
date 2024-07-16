@@ -3,13 +3,16 @@ package ru.aston.sort.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.aston.sort.dto.SortStatisticDto;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
+import ru.aston.sort.mapper.CustomSortStatisticMapper;
 import ru.aston.sort.mapper.SortStatisticsMapper;
 import ru.aston.sort.repository.SortStatisticRepository;
 import ru.aston.sort.repository.UserRepository;
 import ru.aston.sort.service.SortService;
+import ru.aston.sort.service.UserService;
 
 import java.time.Duration;
 import java.util.List;
@@ -29,6 +32,27 @@ public class SortServiceImpl implements SortService {
     private final SortStatisticsMapper mapper;
     private final UserRepository userRepository;
     private final StrategySort strategySort;
+    private final CustomSortStatisticMapper customSortStatisticMapper;
+    private final ReadFile readFile;
+    private final UserService userService;
+
+    public SortStatisticDto bubbleSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new BubbleSort(), user));
+    }
+
+    public SortStatisticDto quickSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new QuickSort(), user));
+    }
+
+    public SortStatisticDto bubbleSortFromFile(MultipartFile file, String userName) {
+        return bubbleSort(readFile.readIntegersFromFile(file), userName);
+    }
+
+    public SortStatisticDto quickSortFromFile(MultipartFile file, String userName) {
+        return quickSort(readFile.readIntegersFromFile(file), userName);
+    }
 
     @Override
     public List<SortStatisticDto> getAllSort() {

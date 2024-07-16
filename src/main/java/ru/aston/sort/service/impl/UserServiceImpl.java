@@ -52,6 +52,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getUserByUsernameOrCreateNew(String userName) {
+        UserEntity userEntity = userRepository.findUserEntityByUserName(userName);
+
+        if (userEntity == null) {
+            userRepository.save(new UserEntity(userName));
+            userEntity = userRepository.findUserEntityByUserName(userName);
+        }
+        return userEntity;
+    }
+
+    @Override
     public List<UserDto> getAllUser() {
         List<UserEntity> userEntitys = userRepository.findAll();
         return mapper.toListDto(userEntitys);
@@ -66,65 +77,6 @@ public class UserServiceImpl implements UserService {
         userEntity.setUserName(updateUser.getUserName());
         UserEntity updateUserObj = userRepository.save(userEntity);
         return mapper.toDto(updateUserObj);
-    }
-
-    public SortStatisticDto bubbleSort(List<Integer> list, String userName) {
-        UserEntity user = getUserByUsernameOrCreateNew(userName);
-        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new BubbleSort(), user));
-    }
-
-    public SortStatisticDto quickSort(List<Integer> list, String userName) {
-        UserEntity user = getUserByUsernameOrCreateNew(userName);
-        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new QuickSort(), user));
-    }
-
-    public UserEntity getUserByUsernameOrCreateNew(String userName) {
-        UserEntity userEntity = userRepository.findUserEntityByUserName(userName);
-
-        if (userEntity == null) {
-            userRepository.save(new UserEntity(userName));
-            userEntity = userRepository.findUserEntityByUserName(userName);
-        }
-        return userEntity;
-    }
-
-
-    public SortStatisticDto bubbleSortFromFile(MultipartFile file, String userName) {
-        return bubbleSort(readFromFile(file), userName);
-    }
-
-    public SortStatisticDto quickSortFromFile(MultipartFile file, String userName) {
-        return quickSort(readFromFile(file), userName);
-    }
-
-    private List<Integer> readFromFile(MultipartFile file) { //TODO: to separate file
-        List<Integer> numbers = new ArrayList<>();
-
-        try {
-            InputStream inputStream = file.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            List<String> lines = new ArrayList<>();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                lines.add(line.trim());
-            }
-
-
-            for (String numStr : lines) {
-                try {
-                    int number = Integer.parseInt(numStr);
-                    numbers.add(number);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Incorrect data - only integers - one in one string.");
-                }
-            }
-        }
-        catch (IOException e) {
-            throw new RuntimeException("Problem with file reading.");
-        }
-        return numbers;
     }
 
     @Override
