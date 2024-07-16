@@ -66,8 +66,6 @@ public class SortServiceImpl implements SortService {
         return mapper.toListDto(sortStatistic);
     }
 
-
-
     @Override
     public List<Integer> getArraySortBubble(List<Integer> array,UUID userId) {
 
