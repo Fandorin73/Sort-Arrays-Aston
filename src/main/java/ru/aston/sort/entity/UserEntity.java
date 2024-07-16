@@ -22,7 +22,11 @@ public class UserEntity implements IEntity {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
+
     @Column(name = "user_name")
     private String userName;
 
+    public UserEntity(String userName) {
+        this.userName = userName;
+    }
 }
