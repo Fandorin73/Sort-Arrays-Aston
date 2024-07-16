@@ -1,14 +1,25 @@
-package ru.aston.sort.bubbleSort;
+package ru.aston.sort.service.impl.bubble;
 
+import ru.aston.sort.entity.SortStatistic;
+import ru.aston.sort.entity.UserEntity;
+import ru.aston.sort.service.Sort;
+
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.ArrayList;
 
-public class EvenBubbleSort {
-    private int swapCount;
+public class EvenBubbleSort implements Sort {
 
-    public List<Integer> sort(List<Integer> numbers) {
-        swapCount = 0;  // Сбрасываем счетчик перестановок
-        List<Integer> sortedList = new ArrayList<>(numbers); // Создаем копию списка
+    private boolean isEven(int number) {
+        return number % 2 == 0;
+    }
+
+    @Override
+    public SortStatistic sort(List<Integer> list, UserEntity userEntity) {
+        long startTime = System.nanoTime();
+        int swapCount = 0;  // Сбрасываем счетчик перестановок
+        List<Integer> sortedList = new ArrayList<>(list); // Создаем копию списка
         int n = sortedList.size();
 
         // Собираем все четные числа
@@ -39,14 +50,11 @@ public class EvenBubbleSort {
             }
         }
 
-        return sortedList;
+        long endTime = System.nanoTime();
+
+        long duration = endTime - startTime;
+
+        return new SortStatistic(swapCount, duration, userEntity, sortedList);
     }
 
-    public int getSwapCount() {
-        return swapCount;
-    }
-
-    private boolean isEven(int number) {
-        return number % 2 == 0;
-    }
 }

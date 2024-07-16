@@ -1,4 +1,4 @@
-package ru.aston.sort.service.impl;
+package ru.aston.sort.service.impl.quick;
 
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.time.Duration;
 import java.util.List;
 
-public class QuickSort implements Sort {
+public class SimpleQuickSort implements Sort {
     public List<Integer> sort(List<Integer> data) {
         quickSort(data, 0, data.size() - 1);
         return data;
@@ -39,6 +39,6 @@ public class QuickSort implements Sort {
     @Override
     public SortStatistic sort(List<Integer> list, UserEntity userEntity) { //TODO: add adding of userEntity instead new UserEntity("Kate")
         Duration duration = Duration.ofMinutes(45);
-        return new SortStatistic(4652, duration, userEntity);
+        return new SortStatistic(4652, 1L, userEntity);
     }
 }

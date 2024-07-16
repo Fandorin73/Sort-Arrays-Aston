@@ -79,21 +79,13 @@
             <version>1.5.0</version>
         </dependency>
 
-
-
         <!-- Swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
         </dependency>
-
-
-
     </dependencies>
-
-
-
     <build>
         <plugins>
 
@@ -134,11 +126,6 @@
                     </sourceDirectories>
                 </configuration>
             </plugin>
-
-
-
-
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -11,8 +11,8 @@ public class CustomSortStatisticMapper {
     public SortStatisticDto toDto(SortStatistic sortStatistic) {
         SortStatisticDto dto = new SortStatisticDto();
         dto.setPermutations(sortStatistic.getPermutations());
-        dto.setSortingTimeMills(sortStatistic.getSortingTime().toMillis());
-
+        dto.setSortingTimeMills(sortStatistic.getSortingTime());
+        dto.setArrayResult(sortStatistic.getArrayResult());
         return dto;
     }
 }

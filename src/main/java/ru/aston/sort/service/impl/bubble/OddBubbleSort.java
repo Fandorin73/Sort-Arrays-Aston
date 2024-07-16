@@ -1,14 +1,20 @@
-package ru.aston.sort.bubbleSort;
+package ru.aston.sort.service.impl.bubble;
+
+import ru.aston.sort.entity.SortStatistic;
+import ru.aston.sort.entity.UserEntity;
+import ru.aston.sort.service.Sort;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class OddBubbleSort {
-    private int swapCount;
+public class OddBubbleSort implements Sort {
+    @Override
+    public SortStatistic sort(List<Integer> list, UserEntity userEntity) {
+        long startTime = System.nanoTime();
+        int swapCount;
 
-    public List<Integer> sort(List<Integer> numbers) {
         swapCount = 0;  // Сбрасываем счетчик перестановок
-        List<Integer> sortedList = new ArrayList<>(numbers); // Создаем копию списка
+        List<Integer> sortedList = new ArrayList<>(list); // Создаем копию списка
         int n = sortedList.size();
 
         // Собираем все нечетные числа
@@ -39,11 +45,10 @@ public class OddBubbleSort {
             }
         }
 
-        return sortedList;
-    }
+        long endTime = System.nanoTime();
 
-    public int getSwapCount() {
-        return swapCount;
+        long duration = endTime - startTime;
+        return new SortStatistic(swapCount, duration, userEntity, sortedList);
     }
 
     private boolean isOdd(int number) {

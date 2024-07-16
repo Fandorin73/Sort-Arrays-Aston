@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -27,13 +28,23 @@ public class SortStatistic implements IEntity{
     private Integer permutations;
 
     @Column(name = "sorting_time")
-    private Duration sortingTime;
+    private Long sortingTime;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = true)
     private UserEntity userEntity;
 
-    public SortStatistic(Integer permutations, Duration sortingTime, UserEntity userEntity) {
+    public SortStatistic(Integer permutations, Long sortingTime, UserEntity userEntity, List<Integer> arrayResult) {
+        this.permutations = permutations;
+        this.sortingTime = sortingTime;
+        this.userEntity = userEntity;
+        this.arrayResult = arrayResult;
+    }
+
+    @Transient
+    private List<Integer> arrayResult;
+
+    public SortStatistic(Integer permutations, Long sortingTime, UserEntity userEntity) {
         this.permutations = permutations;
         this.sortingTime = sortingTime;
         this.userEntity = userEntity;

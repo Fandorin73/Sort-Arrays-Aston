@@ -12,14 +12,63 @@ import java.util.UUID;
  */
 public interface SortService {
 
-    SortStatisticDto bubbleSort(List<Integer> list, String userName);
+    /**
+     * Сортировка simpleBubbleSort
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto simpleBubbleSort(List<Integer> list, String userName);
 
-    SortStatisticDto quickSort(List<Integer> list, String userName);
+    /**
+     * Сортировка simpleBubbleSort из файла
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto simpleBubbleSortFromFile(MultipartFile file, String userName);
 
-    SortStatisticDto bubbleSortFromFile(MultipartFile file, String userName);
+    /**
+     * Сортировка evenBubbleSort
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto evenBubbleSort(List<Integer> list, String userName);
+
+    /**
+     * Сортировка evenBubbleSort из файла
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto evenBubbleSortFromFile(MultipartFile file, String userName);
+
+
+
+
+    /**
+     * Сортировка oddBubbleSort
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto  oddBubbleSort(List<Integer> list, String userName);
+
+    /**
+     * Сортировка oddBubbleSort из файла
+     *
+     * @return - List<SortStatisticDto>
+     */
+    SortStatisticDto oddBubbleSortFromFile(MultipartFile file, String userName);
+
+
+
+
+
+
+
+
+
+
 
     SortStatisticDto quickSortFromFile(MultipartFile file, String userName);
-
+    SortStatisticDto quickSort(List<Integer> list, String userName);
     /**
      * Поиск всех сортировок
      *
@@ -27,25 +76,4 @@ public interface SortService {
      */
     List<SortStatisticDto> getAllSort();
 
-    /**
-     * Поиск всех сортировок
-     *
-     * @param userId -User id
-     * @return - List<SortStatisticDto>
-     */
-    List<SortStatisticDto> getSortByUserId(UUID userId);
-
-    /**
-     * SortBubble массив
-     *
-     * @return - List<Integer>
-     */
-    List<Integer> getArraySortBubble(List<Integer> array,UUID userId);
-
-    /**
-     * SortQuick  массив
-     *
-     * @return - List<Integer>
-     */
-    List<Integer> getArraySortQuick(List<Integer> array,UUID userId);
 }
