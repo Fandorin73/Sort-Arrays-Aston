@@ -1,14 +1,14 @@
-package ru.aston.sort.service.impl;
+package ru.aston.sort.service.impl.quick;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class OddQuickSort {
-    private final QuickSort quickSort;
+    private final SimpleQuickSort quickSort;
 
     public OddQuickSort() {
-        this.quickSort = new QuickSort();
+        this.quickSort = new SimpleQuickSort();
     }
 
     public List<Integer> sort(List<Integer> data) {

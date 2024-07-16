@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +19,6 @@ import java.util.UUID;
 @Builder
 public class SortStatisticDto implements DtoModel {
     private Integer permutations;
-
     private long sortingTimeMills;
+    private List<Integer> arrayResult;
 }
