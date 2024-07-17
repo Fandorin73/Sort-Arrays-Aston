@@ -16,10 +16,12 @@ import ru.aston.sort.service.UserService;
 import ru.aston.sort.service.impl.bubble.EvenBubbleSort;
 import ru.aston.sort.service.impl.bubble.OddBubbleSort;
 import ru.aston.sort.service.impl.bubble.SimpleBubbleSort;
-import ru.aston.sort.service.impl.quick.QuickSort;
+import ru.aston.sort.service.impl.quick.OddOrEvenQuickSort;
+import ru.aston.sort.service.impl.quick.SimpleQuickSort;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 
 /**
@@ -67,17 +69,31 @@ public class SortServiceImpl implements SortService {
     }
 
 
-
-
-    public SortStatisticDto quickSort(List<Integer> list, String userName) {
+    public SortStatisticDto evenQuickSort(List<Integer> list, String userName) {
         UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
-        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new QuickSort(), user));
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+        OddOrEvenQuickSort evenQuickSort = new OddOrEvenQuickSort(isEven);
+
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, evenQuickSort, user));
     }
 
+    public SortStatisticDto oddQuickSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        Predicate<Integer> isEven = n -> n % 2 != 0;
+        OddOrEvenQuickSort oddQuickSort = new OddOrEvenQuickSort(isEven);
 
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, oddQuickSort, user));
+    }
+
+    public SortStatisticDto simpleQuickSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(list, new SimpleQuickSort(), user));
+    }
 
     public SortStatisticDto quickSortFromFile(MultipartFile file, String userName) {
-        return quickSort(readFile.readIntegersFromFile(file), userName);
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.SortAndSave(readFile.readIntegersFromFile(file),
+                new SimpleQuickSort(), user));
     }
 
     @Override

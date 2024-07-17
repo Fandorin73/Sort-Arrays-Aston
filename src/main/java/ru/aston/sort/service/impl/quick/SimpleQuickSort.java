@@ -10,9 +10,18 @@ import java.time.Duration;
 import java.util.List;
 
 public class SimpleQuickSort implements Sort {
-    public List<Integer> sort(List<Integer> data) {
-        quickSort(data, 0, data.size() - 1);
-        return data;
+    private int swapCount = 0;
+
+    @Override
+    public SortStatistic sort(List<Integer> list, UserEntity userEntity) {
+        long startTime = System.nanoTime();
+
+        quickSort(list, 0, list.size() - 1);
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new SortStatistic(swapCount, duration, userEntity, list);
     }
 
     private void quickSort(List<Integer> data, int low, int high) {
@@ -29,16 +38,12 @@ public class SimpleQuickSort implements Sort {
         for (int j = low; j < high; j++) {
             if (data.get(j) <= pivot) {
                 i++;
+                swapCount++;
                 Collections.swap(data, i, j);
             }
         }
+        swapCount++;
         Collections.swap(data, i + 1, high);
         return i + 1;
-    }
-
-    @Override
-    public SortStatistic sort(List<Integer> list, UserEntity userEntity) { //TODO: add adding of userEntity instead new UserEntity("Kate")
-        Duration duration = Duration.ofMinutes(45);
-        return new SortStatistic(4652, 1L, userEntity);
     }
 }

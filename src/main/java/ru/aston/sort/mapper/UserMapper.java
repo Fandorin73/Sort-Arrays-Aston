@@ -12,5 +12,4 @@ import ru.aston.sort.entity.UserEntity;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper extends MapperModel<UserEntity, UserDto> {
-
 }

@@ -11,9 +11,8 @@ public class OddBubbleSort implements Sort {
     @Override
     public SortStatistic sort(List<Integer> list, UserEntity userEntity) {
         long startTime = System.nanoTime();
-        int swapCount;
+        int swapCount = 0; // Сбрасываем счетчик перестановок
 
-        swapCount = 0;  // Сбрасываем счетчик перестановок
         List<Integer> sortedList = new ArrayList<>(list); // Создаем копию списка
         int n = sortedList.size();
 
@@ -46,8 +45,8 @@ public class OddBubbleSort implements Sort {
         }
 
         long endTime = System.nanoTime();
-
         long duration = endTime - startTime;
+
         return new SortStatistic(swapCount, duration, userEntity, sortedList);
     }
 

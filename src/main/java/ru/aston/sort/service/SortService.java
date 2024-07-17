@@ -58,17 +58,12 @@ public interface SortService {
     SortStatisticDto oddBubbleSortFromFile(MultipartFile file, String userName);
 
 
+    SortStatisticDto  oddQuickSort(List<Integer> list, String userName);
 
-
-
-
-
-
-
-
+    SortStatisticDto  evenQuickSort(List<Integer> list, String userName);
 
     SortStatisticDto quickSortFromFile(MultipartFile file, String userName);
-    SortStatisticDto quickSort(List<Integer> list, String userName);
+    SortStatisticDto simpleQuickSort(List<Integer> list, String userName);
     /**
      * Поиск всех сортировок
      *

@@ -51,7 +51,6 @@ public class EvenBubbleSort implements Sort {
         }
 
         long endTime = System.nanoTime();
-
         long duration = endTime - startTime;
 
         return new SortStatistic(swapCount, duration, userEntity, sortedList);
