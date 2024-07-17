@@ -3,12 +3,14 @@ package ru.aston.sort.service.impl.bubble;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
 import ru.aston.sort.service.Sort;
-
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * EvenBubbleSort
+ *
+ * @author Team Aston
+ */
 public class EvenBubbleSort implements Sort {
 
     private boolean isEven(int number) {
@@ -29,7 +31,6 @@ public class EvenBubbleSort implements Sort {
                 evens.add(number);
             }
         }
-
         // Сортируем четные числа
         for (int i = 0; i < evens.size() - 1; i++) {
             for (int j = 0; j < evens.size() - 1 - i; j++) {
@@ -41,7 +42,6 @@ public class EvenBubbleSort implements Sort {
                 }
             }
         }
-
         // Вставляем отсортированные четные числа обратно в список
         int evenIndex = 0;
         for (int i = 0; i < n; i++) {
@@ -49,10 +49,8 @@ public class EvenBubbleSort implements Sort {
                 sortedList.set(i, evens.get(evenIndex++));
             }
         }
-
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
-
         return new SortStatistic(swapCount, duration, userEntity, sortedList);
     }
 

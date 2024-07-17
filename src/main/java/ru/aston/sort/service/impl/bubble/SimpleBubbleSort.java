@@ -3,12 +3,15 @@ package ru.aston.sort.service.impl.bubble;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
 import ru.aston.sort.service.Sort;
-
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * SimpleBubbleSort
+ *
+ * @author Team Aston
+ */
 public class SimpleBubbleSort implements Sort {
 
     @Override
@@ -36,4 +39,3 @@ public class SimpleBubbleSort implements Sort {
     }
 
 }
-
