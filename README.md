@@ -20,6 +20,7 @@
 - CheckStyle
 - PostgreSQL
 - Lombok
+- Logger
 
 ## Как запустить
 
