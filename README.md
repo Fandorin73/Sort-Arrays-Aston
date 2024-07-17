@@ -28,3 +28,5 @@
    git clone https://github.com/Fandorin73/Sort-Arrays-Aston.git
 2. Прописываете environment variables
 DB_URL=jdbc:postgresql://localhost:5432/(Databaze); DB_USER=(User);DB_PWD=(Password)
+3. Можно использовать для тестирования
+http://localhost:8080/swagger-ui/index.html
