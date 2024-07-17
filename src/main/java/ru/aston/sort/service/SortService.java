@@ -2,6 +2,7 @@ package ru.aston.sort.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import ru.aston.sort.dto.SortStatisticDto;
+import ru.aston.sort.dto.SortStatisticsSwaggerDto;
 
 import java.util.List;
 
@@ -55,40 +56,73 @@ public interface SortService {
     SortStatisticDto oddBubbleSortFromFile(MultipartFile file, String userName);
 
     /**
+     * Сортировка simpleQuickSort
+     *
      * @return - SortStatisticDto
      */
-    SortStatisticDto oddQuickSort(List<Integer> list, String userName);
+    SortStatisticDto simpleQuickSort(List<Integer> list, String userName);
 
     /**
+     * Сортировка simpleQuickSort из файла
+     *
+     * @return - SortStatisticDto
+     */
+    SortStatisticDto simpleQuickSortFromFile(MultipartFile file, String userName);
+
+    /**
+     * Сортировка oddQuickSort
+     *
      * @return - SortStatisticDto
      */
     SortStatisticDto evenQuickSort(List<Integer> list, String userName);
 
     /**
+     * Сортировка evenQuickSort из файла
+     *
      * @return - SortStatisticDto
      */
-    SortStatisticDto quickSortFromFile(MultipartFile file, String userName);
+    SortStatisticDto evenQuickSortFromFile(MultipartFile file, String userName);
 
     /**
+     * Сортировка oddQuickSort
+     *
      * @return - SortStatisticDto
      */
-    SortStatisticDto simpleQuickSort(List<Integer> list, String userName);
+    SortStatisticDto oddQuickSort(List<Integer> list, String userName);
+
+    /**
+     * Сортировка oddQuickSort из файла
+     *
+     * @return - SortStatisticDto
+     */
+    SortStatisticDto oddQuickSortFromFile(MultipartFile file, String userName);
 
     /**
      * Поиск всех сортировок
      *
      * @return - SortStatisticDto
      */
-    List<SortStatisticDto> getAllSort();
+    List<SortStatisticsSwaggerDto> getAllSort();
 
     /**
      * Поиск всех сортировок пользователя по имени
      *
      * @return - SortStatisticDto
      */
-    List<SortStatisticDto> getAllSortByUserName(String name);
+    List<SortStatisticsSwaggerDto> getAllSortByUserName(String name);
 
+    /**
+     * QuickSort Рандом
+     *
+     * @return - SortStatisticDto
+     */
     SortStatisticDto quickSortFromRand(int size, int limit, String userName);
+
+    /**
+     * BubbleSort Рандом
+     *
+     * @return - SortStatisticDto
+     */
     SortStatisticDto bubbleSortFromRand(int size, int limit, String userName);
 
 }

@@ -4,8 +4,6 @@ import lombok.Setter;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
 import ru.aston.sort.service.Sort;
-import ru.aston.sort.service.impl.quick.SimpleQuickSort;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -17,7 +15,7 @@ import java.util.stream.Collectors;
  * @author Team Aston
  */
 public class OddOrEvenBubbleSort implements Sort {
-    private final SimpleBubbleSort BubbleSort = new SimpleBubbleSort();
+    private final SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
     @Setter
     private Predicate<Integer> predicate;
 
@@ -30,7 +28,7 @@ public class OddOrEvenBubbleSort implements Sort {
         long startTime = System.nanoTime();
         List<Integer> evens = unsortedList.stream().filter(predicate).collect(Collectors.toList());
 
-        SortStatistic sortStatistic = BubbleSort.sort(evens, userEntity);
+        SortStatistic sortStatistic = bubbleSort.sort(evens, userEntity);
         evens = sortStatistic.getArrayResult();
 
         int swapCount = sortStatistic.getPermutations();

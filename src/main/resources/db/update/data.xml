@@ -18,7 +18,6 @@
         <insert tableName="data_user">
             <column name="user_id" valueComputed="${uuid_function}"/>
             <column name="user_name" value="Путин"/>
-
         </insert>
         <insert tableName="data_user">
             <column name="user_id" valueComputed="${uuid_function}"/>

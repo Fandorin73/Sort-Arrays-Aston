@@ -36,10 +36,12 @@ public class StrategySort {
      * @author Team Aston
      */
     private void validation(List<Integer> list) {
-        if (list.isEmpty())
+        if (list.isEmpty()) {
             throw new IllegalArgumentException("List shouldn't reference to null.");
+        }
         if (list.stream()
-                .anyMatch(Objects::isNull))
+                .anyMatch(Objects::isNull)) {
             throw new IllegalArgumentException("List shouldn't contains null values.");
+        }
     }
 }

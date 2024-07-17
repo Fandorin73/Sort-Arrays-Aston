@@ -5,7 +5,7 @@ import ru.aston.sort.entity.UserEntity;
 import java.util.List;
 
 /**
- *
+ *  Интерфейс Sort, для реализация Стратегии
  *
  * @author Team Aston
  */

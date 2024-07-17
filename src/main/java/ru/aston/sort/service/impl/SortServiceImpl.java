@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.aston.sort.dto.SortStatisticDto;
+import ru.aston.sort.dto.SortStatisticsSwaggerDto;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
 import ru.aston.sort.mapper.CustomSortStatisticMapper;
 import ru.aston.sort.repository.SortStatisticRepository;
-import ru.aston.sort.repository.UserRepository;
 import ru.aston.sort.service.SortService;
 import ru.aston.sort.service.UserService;
 import ru.aston.sort.service.impl.bubble.OddOrEvenBubbleSort;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 
 /**
@@ -38,6 +39,7 @@ public class SortServiceImpl implements SortService {
     private final UserService userService;
     private final Predicate<Integer> isEven = n -> n % 2 == 0;
     private final Predicate<Integer> isOdd = n -> n % 2 != 0;
+    private static final Logger LOGGER = Logger.getLogger(SortServiceImpl.class.getName());
 
     @Override
     public SortStatisticDto simpleBubbleSort(List<Integer> list, String userName) {
@@ -48,23 +50,6 @@ public class SortServiceImpl implements SortService {
     @Override
     public SortStatisticDto simpleBubbleSortFromFile(MultipartFile file, String userName) {
         return simpleBubbleSort(readFile.readIntegersFromFile(file), userName);
-    }
-
-    @Override
-    public SortStatisticDto evenBubbleSort(List<Integer> list, String userName) {
-        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
-        OddOrEvenBubbleSort evenBubbleSort = new OddOrEvenBubbleSort(isEven);
-
-        return customSortStatisticMapper.toDto(strategySort.sortAndSave(list, evenBubbleSort, user));
-    }
-
-    @Override
-    public SortStatisticDto evenBubbleSortFromFile(MultipartFile file, String userName) {
-        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
-        OddOrEvenBubbleSort evenBubbleSort = new OddOrEvenBubbleSort(isEven);
-
-        return customSortStatisticMapper.toDto(strategySort.sortAndSave(readFile.readIntegersFromFile(file),
-                evenBubbleSort, user));
     }
 
     @Override
@@ -85,11 +70,48 @@ public class SortServiceImpl implements SortService {
     }
 
     @Override
+    public SortStatisticDto evenBubbleSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        OddOrEvenBubbleSort evenBubbleSort = new OddOrEvenBubbleSort(isEven);
+
+        return customSortStatisticMapper.toDto(strategySort.sortAndSave(list, evenBubbleSort, user));
+    }
+
+    @Override
+    public SortStatisticDto evenBubbleSortFromFile(MultipartFile file, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        OddOrEvenBubbleSort evenBubbleSort = new OddOrEvenBubbleSort(isEven);
+
+        return customSortStatisticMapper.toDto(strategySort.sortAndSave(readFile.readIntegersFromFile(file),
+                evenBubbleSort, user));
+    }
+
+    @Override
+    public SortStatisticDto simpleQuickSort(List<Integer> list, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.sortAndSave(list, new SimpleQuickSort(), user));
+    }
+
+    @Override
+    public SortStatisticDto simpleQuickSortFromFile(MultipartFile file, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.sortAndSave(readFile.readIntegersFromFile(file),
+                new SimpleQuickSort(), user));
+    }
+
+    @Override
     public SortStatisticDto evenQuickSort(List<Integer> list, String userName) {
         UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
         OddOrEvenQuickSort evenQuickSort = new OddOrEvenQuickSort(isEven);
 
         return customSortStatisticMapper.toDto(strategySort.sortAndSave(list, evenQuickSort, user));
+    }
+
+    @Override
+    public SortStatisticDto evenQuickSortFromFile(MultipartFile file, String userName) {
+        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
+        return customSortStatisticMapper.toDto(strategySort.sortAndSave(readFile.readIntegersFromFile(file),
+                new OddOrEvenQuickSort(isEven), user));
     }
 
     @Override
@@ -101,28 +123,22 @@ public class SortServiceImpl implements SortService {
     }
 
     @Override
-    public SortStatisticDto simpleQuickSort(List<Integer> list, String userName) {
-        UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
-        return customSortStatisticMapper.toDto(strategySort.sortAndSave(list, new SimpleQuickSort(), user));
-    }
-
-    @Override
-    public SortStatisticDto quickSortFromFile(MultipartFile file, String userName) {
+    public SortStatisticDto oddQuickSortFromFile(MultipartFile file, String userName) {
         UserEntity user = userService.getUserByUsernameOrCreateNew(userName);
         return customSortStatisticMapper.toDto(strategySort.sortAndSave(readFile.readIntegersFromFile(file),
-                new SimpleQuickSort(), user));
+                new OddOrEvenQuickSort(isOdd), user));
     }
 
     @Override
-    public List<SortStatisticDto> getAllSort() {
+    public List<SortStatisticsSwaggerDto> getAllSort() {
         List<SortStatistic> sortStatistics = sortStatisticRepository.findAll();
-        return customSortStatisticMapper.toDtoList(sortStatistics);
+        return customSortStatisticMapper.userStatisticToDtoList(sortStatistics);
     }
 
     @Override
-    public List<SortStatisticDto> getAllSortByUserName(String name) {
+    public List<SortStatisticsSwaggerDto> getAllSortByUserName(String name) {
         List<SortStatistic> sortStatistics = sortStatisticRepository.getAllByUserEntityUserName(name);
-        return customSortStatisticMapper.toDtoList(sortStatistics);
+        return customSortStatisticMapper.userStatisticToDtoList(sortStatistics);
     }
 
     @Override
@@ -146,6 +162,7 @@ public class SortServiceImpl implements SortService {
         for (int i = 0; i < size; i++) {
             list.add(random.nextInt(limit));
         }
+        LOGGER.info("Сортируется рандомный массив: " + list);
         return list;
     }
 }
