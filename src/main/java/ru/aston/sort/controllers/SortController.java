@@ -93,32 +93,48 @@ public class SortController {
         return sortService.oddBubbleSortFromFile(file, username);
     }
 
+    /**
+     * Сортировка EvenQuickSort.
+     *
+     * @author Team Aston
+     */
+    @PostMapping(path = "/evenQuickSort/{username}")
+    public SortStatisticDto evenQuickSort(@PathVariable("username") String username,
+                                          @RequestBody List<Integer> list) {
+        return sortService.evenQuickSort(list, username);
+    }
 
+    /**
+     * Сортировка OddQuickSort.
+     *
+     * @author Team Aston
+     */
+    @PostMapping(path = "/oddQuickSort/{username}")
+    public SortStatisticDto oddQuickSort(@PathVariable("username") String username,
+                                          @RequestBody List<Integer> list) {
+        return sortService.oddQuickSort(list, username);
+    }
 
+    /**
+     * Сортировка SimpleQuickSort.
+     *
+     * @author Team Aston
+     */
+    @PostMapping(path = "/simpleQuickSort/{username}")
+    public SortStatisticDto simpleQuickSort(@PathVariable("username") String username,
+                                         @RequestBody List<Integer> list) {
+        return sortService.simpleQuickSort(list, username);
+    }
 
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
-
-
-
+    /**
+     * Сортировка SimpleQuickSort из файла.
+     *
+     * @author Team Aston
+     */
     @PostMapping(value = "/quickSort/fromFile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public SortStatisticDto quickSortFromFile(@PathVariable("username") String username,
                                               @RequestParam("file") MultipartFile file) {
         return sortService.quickSortFromFile(file, username);
-    }
-
-    /**
-     * Сортировка .
-     *
-     * @author Team Aston
-     */
-    @PostMapping(path = "/quickSort/{username}")
-    public SortStatisticDto quickSort(@PathVariable("username") String username,
-                                      @RequestBody List<Integer> list) {
-        return sortService.quickSort(list, username);
     }
 
     /**

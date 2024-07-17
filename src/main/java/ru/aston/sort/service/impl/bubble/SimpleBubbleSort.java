@@ -12,8 +12,7 @@ import java.util.List;
 public class SimpleBubbleSort implements Sort {
 
     @Override
-    public SortStatistic sort(List<Integer> list, UserEntity userEntity) { //TODO: add adding of userEntity instead new UserEntity("Kate")
-
+    public SortStatistic sort(List<Integer> list, UserEntity userEntity) {
         long startTime = System.nanoTime();
         int swapCount = 0;  // Сбрасываем счетчик перестановок
         List<Integer> sortedList = new ArrayList<>(list); // Создаем копию списка
@@ -29,9 +28,10 @@ public class SimpleBubbleSort implements Sort {
                 }
             }
         }
-        long endTime = System.nanoTime();
 
+        long endTime = System.nanoTime();
         long duration = endTime - startTime;
+
         return new SortStatistic(swapCount, duration, userEntity, sortedList);
     }
 
