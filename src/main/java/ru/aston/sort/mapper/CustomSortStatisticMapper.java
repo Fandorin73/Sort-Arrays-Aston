@@ -22,7 +22,7 @@ public class CustomSortStatisticMapper {
     public SortStatisticDto toDto(SortStatistic sortStatistic) {
         SortStatisticDto dto = new SortStatisticDto();
         dto.setPermutations(sortStatistic.getPermutations());
-        dto.setSortingTimeMills(sortStatistic.getSortingTime() / 1000);
+        dto.setSortingTimeMicroSeconds(sortStatistic.getSortingTime() / 1000);
         dto.setArrayResult(sortStatistic.getArrayResult());
         return dto;
     }
@@ -37,7 +37,7 @@ public class CustomSortStatisticMapper {
         for (SortStatistic sortStatistic:sortStatisticList) {
             SortStatisticDto dto = new SortStatisticDto();
             dto.setPermutations(sortStatistic.getPermutations());
-            dto.setSortingTimeMills(sortStatistic.getSortingTime() / 1000);
+            dto.setSortingTimeMicroSeconds(sortStatistic.getSortingTime() / 1000);
             dto.setArrayResult(sortStatistic.getArrayResult());
             dtoList.add(dto);
         }

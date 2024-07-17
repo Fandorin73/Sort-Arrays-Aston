@@ -178,16 +178,26 @@ public class SortController {
     }
 
     /**
-     * Генерация массива чисел
+     * QuickSort из случайного массива чисел, для которого пользователь задал размер и максимальное значение в массиве
      *
      * @author Team Aston
      */
-    @GetMapping(path = "/generateRandomArray/{size}{limit}")
-    @ApiResponse(responseCode = "200", description = "Генерация массива чисел",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Integer.class)))
-    public List<Integer> getAllSort(@RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "limit", required = false)
-            Integer limit) {
-        List<Integer> array = sortService.generateRandomArray(size, limit);
-        return array;
+    @GetMapping(path = "/quickSortFromRand/size/{size}/limit/{limit}/username/{username}")
+   public SortStatisticDto quickSortFromRand(@PathVariable("size") Integer size,
+                                          @PathVariable("limit") Integer limit,
+                                          @PathVariable("username") String username) {
+        return sortService.quickSortFromRand(size, limit, username);
+    }
+
+    /**
+     * BubbleSort из случайного массива чисел, для которого пользователь задал размер и максимальное значение в массиве
+     *
+     * @author Team Aston
+     */
+    @GetMapping(path = "/bubbleSortFromRand/size/{size}/limit/{limit}/username/{username}")
+    public SortStatisticDto bubbleSortFromRand(@PathVariable("size") Integer size,
+                                              @PathVariable("limit") Integer limit,
+                                              @PathVariable("username") String username) {
+        return sortService.bubbleSortFromRand(size, limit, username);
     }
 }

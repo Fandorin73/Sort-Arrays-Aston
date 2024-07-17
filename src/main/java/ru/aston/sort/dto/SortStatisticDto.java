@@ -17,6 +17,6 @@ import java.util.List;
 @Builder
 public class SortStatisticDto implements DtoModel {
     private Integer permutations;
-    private long sortingTimeMills;
+    private long sortingTimeMicroSeconds;
     private List<Integer> arrayResult;
 }

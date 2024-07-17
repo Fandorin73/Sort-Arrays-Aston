@@ -88,11 +88,7 @@ public interface SortService {
      */
     List<SortStatisticDto> getAllSortByUserName(String name);
 
-    /**
-     * Создает массив рандомных чисел
-     *
-     * @return -  Integer
-     */
-    List<Integer> generateRandomArray(int n, int limit);
+    SortStatisticDto quickSortFromRand(int size, int limit, String userName);
+    SortStatisticDto bubbleSortFromRand(int size, int limit, String userName);
 
 }

@@ -8,6 +8,7 @@ import ru.aston.sort.repository.SortStatisticRepository;
 import ru.aston.sort.service.Sort;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Team Aston
@@ -35,8 +36,10 @@ public class StrategySort {
      * @author Team Aston
      */
     private void validation(List<Integer> list) {
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("You set null in sort method");
-        }
+        if (list.isEmpty())
+            throw new IllegalArgumentException("List shouldn't reference to null.");
+        if (list.stream()
+                .anyMatch(Objects::isNull))
+            throw new IllegalArgumentException("List shouldn't contains null values.");
     }
 }
