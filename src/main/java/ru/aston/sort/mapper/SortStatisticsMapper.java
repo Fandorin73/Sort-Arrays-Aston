@@ -11,5 +11,5 @@ import ru.aston.sort.entity.SortStatistic;
  * @author Team Aston
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface SortStatisticsMapper extends MapperModel<SortStatistic, SortStatisticDto>{
+public interface SortStatisticsMapper extends MapperModel<SortStatistic, SortStatisticDto> {
 }

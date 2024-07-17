@@ -6,7 +6,6 @@ import ru.aston.sort.service.Sort;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * SimpleBubbleSort
  *
