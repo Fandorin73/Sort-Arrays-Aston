@@ -1,19 +1,20 @@
 package ru.aston.sort.service.impl.quick;
-import lombok.NoArgsConstructor;
+
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
 import ru.aston.sort.service.Sort;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-
+/**
+ * OddOrEvenQuickSort
+ *
+ * @author Team Aston
+ */
 public class OddOrEvenQuickSort implements Sort {
     private final SimpleQuickSort quickSort = new SimpleQuickSort();
     @Setter

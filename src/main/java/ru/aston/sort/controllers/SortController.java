@@ -1,37 +1,45 @@
 package ru.aston.sort.controllers;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 import ru.aston.sort.dto.SortStatisticDto;
-import ru.aston.sort.dto.UserDto;
-import ru.aston.sort.service.SortService;
 import ru.aston.sort.service.impl.SortServiceImpl;
-
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Controller для Статистики.
  *
  * @author Team Aston
  */
+@Tag(name = "Statistic Controller", description = "Принимает массив чисел или текстовый файл с числами от пользователя, сортирует их" +
+        ", сохраняет статистику с данными о времени сортировки и количества перестановок. Просмотр статистики сортировок нужного пользователя")
 @RestController
 @RequestMapping(path = "/sort")
 @AllArgsConstructor
 public class SortController {
     private final SortServiceImpl sortService;
 
-
     /**
      * Сортировка SimpleBubbleSort.
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/simpleBubbleSort/{username}")
+    @ApiResponse(responseCode = "200", description = "Bubble сортировка чисел",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(path = "/bubble/simple/{username}")
     public SortStatisticDto simpleBubbleSort(@PathVariable("username") String username,
                                              @RequestBody List<Integer> list) {
         return sortService.simpleBubbleSort(list, username);
@@ -42,7 +50,9 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(value = "/simpleBubbleSort/fromFile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiResponse(responseCode = "200", description = "Bubble сортировка чисел из файла",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(value = "/bubble/simple-from-file/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public SortStatisticDto simpleBubbleSortFromFile(@PathVariable("username") String username,
                                                      @RequestParam("file") MultipartFile file) {
         return sortService.simpleBubbleSortFromFile(file, username);
@@ -54,7 +64,9 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/evenBubbleSort/{username}")
+    @ApiResponse(responseCode = "200", description = "Bubble сортировка четных чисел",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(path = "/bubble/even/{username}")
     public SortStatisticDto evenBubbleSort(@PathVariable("username") String username,
                                            @RequestBody List<Integer> list) {
         return sortService.evenBubbleSort(list, username);
@@ -65,7 +77,9 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(value = "/evenBubbleSort/fromFile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiResponse(responseCode = "200", description = "Even Bubble сортировка четных чисел из файла",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(value = "/bubble/even-from-file/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public SortStatisticDto evenBubbleSortFromFile(@PathVariable("username") String username,
                                                    @RequestParam("file") MultipartFile file) {
         return sortService.evenBubbleSortFromFile(file, username);
@@ -76,9 +90,11 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/oddBubbleSort/{username}")
+    @ApiResponse(responseCode = "200", description = "Bubble сортировка не четных чисел",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(path = "/bubble/odd/{username}")
     public SortStatisticDto oddBubbleSort(@PathVariable("username") String username,
-                                           @RequestBody List<Integer> list) {
+                                          @RequestBody List<Integer> list) {
         return sortService.oddBubbleSort(list, username);
     }
 
@@ -87,9 +103,11 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(value = "/oddBubbleSort/fromFile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiResponse(responseCode = "200", description = "Bubble сортировка не четных чисел из файла",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = SortStatisticDto.class)))
+    @PostMapping(value = "/bubble/odd-from-file/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public SortStatisticDto oddBubbleSortFromFile(@PathVariable("username") String username,
-                                                   @RequestParam("file") MultipartFile file) {
+                                                  @RequestParam("file") MultipartFile file) {
         return sortService.oddBubbleSortFromFile(file, username);
     }
 
@@ -98,7 +116,7 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/evenQuickSort/{username}")
+    @PostMapping(path = "/quick/even/{username}")
     public SortStatisticDto evenQuickSort(@PathVariable("username") String username,
                                           @RequestBody List<Integer> list) {
         return sortService.evenQuickSort(list, username);
@@ -109,9 +127,9 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/oddQuickSort/{username}")
+    @PostMapping(path = "/quick/odd/{username}")
     public SortStatisticDto oddQuickSort(@PathVariable("username") String username,
-                                          @RequestBody List<Integer> list) {
+                                         @RequestBody List<Integer> list) {
         return sortService.oddQuickSort(list, username);
     }
 
@@ -120,9 +138,9 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(path = "/simpleQuickSort/{username}")
+    @PostMapping(path = "/quick/simple/{username}")
     public SortStatisticDto simpleQuickSort(@PathVariable("username") String username,
-                                         @RequestBody List<Integer> list) {
+                                            @RequestBody List<Integer> list) {
         return sortService.simpleQuickSort(list, username);
     }
 
@@ -131,7 +149,7 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @PostMapping(value = "/quickSort/fromFile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/quick/simple-from-ile/{username}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public SortStatisticDto quickSortFromFile(@PathVariable("username") String username,
                                               @RequestParam("file") MultipartFile file) {
         return sortService.quickSortFromFile(file, username);
@@ -142,9 +160,34 @@ public class SortController {
      *
      * @author Team Aston
      */
-    @GetMapping(path = "/getAllSort")
+    @GetMapping(path = "/get-all-sort")
     public ResponseEntity<List<SortStatisticDto>> getAllSort() {
         List<SortStatisticDto> users = sortService.getAllSort();
         return ResponseEntity.ok(users);
+    }
+
+    /**
+     * Поиск всех сортировок.
+     *
+     * @author Team Aston
+     */
+    @GetMapping(path = "/get-all-sort-by-user-name/{name}")
+    public ResponseEntity<List<SortStatisticDto>> getAllSortByUserName(@RequestParam(value = "name", required = false) String name) {
+        List<SortStatisticDto> array = sortService.getAllSortByUserName(name);
+        return ResponseEntity.ok(array);
+    }
+
+    /**
+     * Генерация массива чисел
+     *
+     * @author Team Aston
+     */
+    @GetMapping(path = "/generateRandomArray/{size}{limit}")
+    @ApiResponse(responseCode = "200", description = "Генерация массива чисел",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Integer.class)))
+    public List<Integer> getAllSort(@RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "limit", required = false)
+            Integer limit) {
+        List<Integer> array = sortService.generateRandomArray(size, limit);
+        return array;
     }
 }

@@ -1,11 +1,7 @@
 package ru.aston.sort.service;
 
-import org.springframework.web.multipart.MultipartFile;
-import ru.aston.sort.dto.SortStatisticDto;
 import ru.aston.sort.dto.UserDto;
-import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +12,12 @@ import java.util.UUID;
  */
 public interface UserService {
 
+    /**
+     * Найти или создать нового User, если его нет
+     *
+     * @param userName - данные User от пользователя
+     * @return - User
+     */
     UserEntity getUserByUsernameOrCreateNew(String userName);
 
     /**

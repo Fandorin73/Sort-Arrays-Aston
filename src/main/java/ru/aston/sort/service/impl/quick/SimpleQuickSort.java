@@ -2,13 +2,15 @@ package ru.aston.sort.service.impl.quick;
 
 import ru.aston.sort.entity.SortStatistic;
 import ru.aston.sort.entity.UserEntity;
-import ru.aston.sort.repository.UserRepository;
 import ru.aston.sort.service.Sort;
-
 import java.util.Collections;
-import java.time.Duration;
 import java.util.List;
 
+/**
+ * SimpleQuickSort
+ *
+ * @author Team Aston
+ */
 public class SimpleQuickSort implements Sort {
     private int swapCount = 0;
 
