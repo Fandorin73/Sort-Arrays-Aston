@@ -13,17 +13,8 @@ public class EvenQuickSort {
 
     public List<Integer> sort(List<Integer> data) {
         List<Integer> evenNumbers = data.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
-        data = quickSort.sort(evenNumbers);
+        evenNumbers = quickSort.sort(evenNumbers);
 
-        List<Integer> result = new ArrayList<>(data);
-        Iterator<Integer> evenIterator = evenNumbers.iterator();
-
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i) % 2 == 0 && evenIterator.hasNext()) {
-                result.set(i, evenIterator.next());
-            }
-        }
-
-        return result;
+        return evenNumbers;
     }
 }
