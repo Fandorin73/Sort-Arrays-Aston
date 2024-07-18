@@ -13,17 +13,8 @@ public class OddQuickSort {
 
     public List<Integer> sort(List<Integer> data) {
         List<Integer> oddNumbers = data.stream().filter(n -> n % 2 != 0).collect(Collectors.toList());
-        data = quickSort.sort(oddNumbers);
+        oddNumbers = quickSort.sort(oddNumbers);
 
-        List<Integer> result = new ArrayList<>(data);
-        Iterator<Integer> oddIterator = oddNumbers.iterator();
-
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i) % 2 != 0 && oddIterator.hasNext()) {
-                result.set(i, oddIterator.next());
-            }
-        }
-
-        return result;
+        return oddNumbers;
     }
 }
